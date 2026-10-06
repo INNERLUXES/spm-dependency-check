@@ -1,0 +1,50 @@
+{
+  "name": "spm-dependency-check",
+  "version": "1.0.0",
+  "description": "Swift Package Manager dependency check: reads every Package.swift, Package.resolved (format 1, 2 and 3) and the package references of every Xcode project file of an iOS or macOS app or package as text, fetches nothing, and lists dependencies that follow a branch or a bare revision, package URLs that are not https, a package declared twice with different requirements, remote dependencies with no Package.resolved, stale pins and missing pins, pinned versions outside their requirement, ranges past the next major version, deprecated or moved packages and local packages, with file and line and a table of the packages. Text, JSON, CSV and GitHub annotation output, exit codes for a pipeline, no dependencies.",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "bin": {
+    "spm-dependency-check": "bin/spm-dependency-check.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "docs",
+    "examples",
+    "research",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test \"test/*.test.js\"",
+    "test:coverage": "node --test --experimental-test-coverage \"test/*.test.js\"",
+    "check": "node tools/check.mjs",
+    "example": "node tools/example.mjs"
+  },
+  "keywords": [
+    "ios",
+    "swift",
+    "swift-package-manager",
+    "spm",
+    "xcode",
+    "package-resolved",
+    "dependency-management",
+    "code-review",
+    "semver",
+    "cli"
+  ],
+  "author": "INNERLUXES <info@innerluxes.dev>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/INNERLUXES/spm-dependency-check.git"
+  },
+  "homepage": "https://innerluxes.dev/application/mobile/development/ios/developers-for-hire"
+}

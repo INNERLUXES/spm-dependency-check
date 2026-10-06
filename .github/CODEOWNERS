@@ -1,0 +1,24 @@
+# Every change is reviewed by a maintainer.
+* @innerluxesdev
+
+# The listing of the project, the reading of files, the readers of a manifest, an Xcode project file and a
+# Package.resolved, the versions and locations, the patterns, the checks of the project, the points of the public pages
+# and the output decide every result and what is read from the disk; changes need extra care.
+/src/walk.js @innerluxesdev
+/src/files.js @innerluxesdev
+/src/swift.js @innerluxesdev
+/src/pbxproj.js @innerluxesdev
+/src/resolved.js @innerluxesdev
+/src/semver.js @innerluxesdev
+/src/urls.js @innerluxesdev
+/src/glob.js @innerluxesdev
+/src/project.js @innerluxesdev
+/src/json.js @innerluxesdev
+/src/data.js @innerluxesdev
+/src/defaults.js @innerluxesdev
+/research/ @innerluxesdev
+/src/csv.js @innerluxesdev
+/src/config.js @innerluxesdev
+/src/rules.js @innerluxesdev
+/src/check.js @innerluxesdev
+/src/report.js @innerluxesdev

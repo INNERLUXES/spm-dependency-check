@@ -1,0 +1,108 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 60;
+	objects = {
+
+/* Begin PBXNativeTarget section */
+		C0FFEE000000000000000101 /* CopperleafOrders */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0FFEE000000000000000301 /* Build configuration list for PBXNativeTarget "CopperleafOrders" */;
+			buildPhases = (
+			);
+			dependencies = (
+			);
+			name = CopperleafOrders;
+			packageProductDependencies = (
+				C0FFEE000000000000000401 /* NetKit */,
+				C0FFEE000000000000000402 /* ImageCache */,
+				C0FFEE000000000000000403 /* AnalyticsKit */,
+				C0FFEE000000000000000404 /* OrderCore */,
+			);
+			productName = CopperleafOrders;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C0FFEE000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+			};
+			mainGroup = C0FFEE000000000000000002;
+			packageReferences = (
+				C0FFEE000000000000000201 /* XCRemoteSwiftPackageReference "netkit" */,
+				C0FFEE000000000000000202 /* XCRemoteSwiftPackageReference "imagecache" */,
+				C0FFEE000000000000000203 /* XCRemoteSwiftPackageReference "analytics-kit" */,
+				C0FFEE000000000000000204 /* XCLocalSwiftPackageReference "Packages/OrderCore" */,
+			);
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C0FFEE000000000000000101 /* CopperleafOrders */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		C0FFEE000000000000000204 /* XCLocalSwiftPackageReference "Packages/OrderCore" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/OrderCore;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C0FFEE000000000000000201 /* XCRemoteSwiftPackageReference "netkit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://code.example.test/kestrel-labs/netkit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		C0FFEE000000000000000202 /* XCRemoteSwiftPackageReference "imagecache" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://code.example.test/kestrel-labs/imagecache.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 2.3.0;
+			};
+		};
+		C0FFEE000000000000000203 /* XCRemoteSwiftPackageReference "analytics-kit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://code.example.test/kestrel-labs/analytics-kit.git";
+			requirement = {
+				kind = exactVersion;
+				version = 3.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C0FFEE000000000000000401 /* NetKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0FFEE000000000000000201 /* XCRemoteSwiftPackageReference "netkit" */;
+			productName = NetKit;
+		};
+		C0FFEE000000000000000402 /* ImageCache */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0FFEE000000000000000202 /* XCRemoteSwiftPackageReference "imagecache" */;
+			productName = ImageCache;
+		};
+		C0FFEE000000000000000403 /* AnalyticsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0FFEE000000000000000203 /* XCRemoteSwiftPackageReference "analytics-kit" */;
+			productName = AnalyticsKit;
+		};
+		C0FFEE000000000000000404 /* OrderCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C0FFEE000000000000000204 /* XCLocalSwiftPackageReference "Packages/OrderCore" */;
+			productName = OrderCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = C0FFEE000000000000000001 /* Project object */;
+}

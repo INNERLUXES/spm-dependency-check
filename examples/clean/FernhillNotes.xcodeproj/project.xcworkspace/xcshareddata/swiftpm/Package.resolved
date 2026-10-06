@@ -1,0 +1,33 @@
+{
+  "originHash" : "3e8b1d4f7a0c3e6b9d2f5a8c1e4b7d0f3a6c9e2b5d8f1a4c7e0b3d6f9a2c5e8b",
+  "pins" : [
+    {
+      "identity" : "markdownview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://code.example.test/orbit-ui/markdownview.git",
+      "state" : {
+        "revision" : "6a9c2e5b8d1f4a7c0e3b6d9f2a5c8e1b4d7f0a3c",
+        "version" : "1.8.3"
+      }
+    },
+    {
+      "identity" : "netkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://code.example.test/kestrel-labs/netkit.git",
+      "state" : {
+        "revision" : "8d1f4a7c0e3b6d9f2a5c8e1b4d7f0a3c6e9b2d5f",
+        "version" : "5.4.1"
+      }
+    },
+    {
+      "identity" : "sync-engine",
+      "kind" : "remoteSourceControl",
+      "location" : "https://code.example.test/fernhill/sync-engine.git",
+      "state" : {
+        "revision" : "0e3b6d9f2a5c8e1b4d7f0a3c6e9b2d5f8a1c4e7b",
+        "version" : "3.2.0"
+      }
+    }
+  ],
+  "version" : 3
+}

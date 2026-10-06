@@ -1,0 +1,164 @@
+spm-dependency-check: examples/messy
+input: 2 manifests; 1 Xcode project; 1 Package.resolved; 1 other file passed over; 1 folder named .build, DerivedData, Pods or .git passed over; 1 path excluded; 0 links not followed
+config: examples/config.json (Copperleaf dependency review): deprecated packages code.example.test/old-tools/*; indirect pins logkit; exclude Vendor/**; minimum severity info; fail on error
+rules: branch-requirement (error); insecure-url (error); conflicting-requirement (error); unpinned-dependency (error); resolved-outside-requirement (error); revision-requirement (warning); missing-resolved (warning); stale-pin (warning); wide-range (warning); deprecated-package (warning); unreadable-requirement (warning); local-package (info); unreadable-file (error); scan-limit (error)
+findings: 12 (6 error, 4 warning, 2 info)
+
+Files (4)
+
+  file                                                                                                 kind                 remote  local  pins  products  error  warning  info
+  examples/messy/CopperleafOrders.xcodeproj/project.pbxproj                                            Xcode project        3       1      0     4         0      0        1
+  examples/messy/CopperleafOrders.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved  Package.resolved v3  0       0      8     0         2      1        0
+  examples/messy/Packages/DesignTokens/Package.swift                                                   manifest             0       0      0     0         0      0        0
+  examples/messy/Packages/OrderCore/Package.swift                                                      manifest             6       1      0     7         4      3        1
+
+Packages (11)
+
+  package          kind      declared  requirement                                        resolved                       products
+  analytics-kit    remote    1         exact 3.1.0                                        3.1.2                          1
+  designtokens     local     1         local path                                         -                              1
+  featureflags     remote    1         1.0.0..<99.0.0                                     -                              1
+  imagecache       remote    2         up to next minor from 2.3.0 / from 2.1.0           2.3.4                          2
+  keychain-store   remote    1         branch develop                                     branch develop (a3f6c9e2b5d8)  1
+  legacy-promises  pin only  0         -                                                  6.2.0                          0
+  logkit           pin only  0         -                                                  1.6.0                          0
+  markdownview     remote    1         revision 4f1c2a9e7b3d5f6a8c0e1b2d3f4a5c6e7b8d9f0a  revision 4f1c2a9e7b3d          1
+  netkit           remote    2         from 5.0.0                                         4.9.0                          2
+  ordercore        local     1         local path                                         -                              1
+  swift-retry      remote    1         from 1.4.0                                         1.4.2                          1
+
+Summary
+
+  packages: 11 (7 remote, 2 local), in 11 declarations
+  requirement kinds: 4 up to next major, 1 up to next minor, 1 exact, 1 range, 1 branch, 1 revision, 2 local path
+  resolved: 8 pins in 1 Package.resolved file
+  products used by targets: 11
+
+Rules (14)
+
+  rule                          level    findings
+  branch-requirement            error    1
+  insecure-url                  error    1
+  conflicting-requirement       error    1
+  unpinned-dependency           error    1
+  resolved-outside-requirement  error    2
+  revision-requirement          warning  1
+  missing-resolved              warning  0
+  stale-pin                     warning  1
+  wide-range                    warning  1
+  deprecated-package            warning  1
+  unreadable-requirement        warning  0
+  local-package                 info     2
+  unreadable-file               error    0
+  scan-limit                    error    0
+
+Findings (12)
+
+  ERROR    resolved-outside-requirement  examples/messy/CopperleafOrders.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved:10
+           Package.resolved pins "analytics-kit" at 3.1.2, which the requirement exact 3.1.0 in examples/messy/CopperleafOrders.xcodeproj/project.pbxproj:79 does not allow (above 3.1.0)
+           fix: resolve the packages again so the pin follows the requirement, and commit the Package.resolved; if the pin is the version you want, change the requirement to allow it
+           rule: a pinned version or commit outside the requirement of the package
+           basis: Package.resolved records the result of dependency resolution, and the versions in it are used for a top-level package; it is ignored when the package is a dependency of another (Resolving and updating dependencies (Swift Package Manager documentation), https://github.com/swiftlang/swift-package-manager/blob/main/Sources/PackageManagerDocs/Documentation.docc/ResolvingPackageVersions.md)
+           basis: swift package resolve keeps the versions of Package.resolved while they are still eligible, and swift package update moves to the latest eligible versions and writes the file again (Resolving and updating dependencies (Swift Package Manager documentation), https://github.com/swiftlang/swift-package-manager/blob/main/Sources/PackageManagerDocs/Documentation.docc/ResolvingPackageVersions.md)
+           basis: versions are compared by major, minor and patch as numbers, a pre-release is lower than its release, and build metadata does not count (Semantic Versioning 2.0.0 (semver.org), https://semver.org/spec/v2.0.0.html)
+           the tool's own choice: a pin of a Package.resolved whose version is outside the bounds of a version requirement of the same identity, compared by the order of semantic versions with build metadata left out; a pin with no version under a version requirement, a pin on another branch under a branch requirement and a pin on another commit under a revision requirement count too; a version that is not a semantic version is reported as such
+
+  ERROR    resolved-outside-requirement  examples/messy/CopperleafOrders.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved:63
+           Package.resolved pins "netkit" at 4.9.0, which the requirement from 5.0.0 in examples/messy/CopperleafOrders.xcodeproj/project.pbxproj:63 does not allow (lower than 5.0.0)
+           fix: resolve the packages again so the pin follows the requirement, and commit the Package.resolved; if the pin is the version you want, change the requirement to allow it
+           rule: a pinned version or commit outside the requirement of the package
+           basis: Package.resolved records the result of dependency resolution, and the versions in it are used for a top-level package; it is ignored when the package is a dependency of another (Resolving and updating dependencies (Swift Package Manager documentation), https://github.com/swiftlang/swift-package-manager/blob/main/Sources/PackageManagerDocs/Documentation.docc/ResolvingPackageVersions.md)
+           basis: swift package resolve keeps the versions of Package.resolved while they are still eligible, and swift package update moves to the latest eligible versions and writes the file again (Resolving and updating dependencies (Swift Package Manager documentation), https://github.com/swiftlang/swift-package-manager/blob/main/Sources/PackageManagerDocs/Documentation.docc/ResolvingPackageVersions.md)
+           basis: versions are compared by major, minor and patch as numbers, a pre-release is lower than its release, and build metadata does not count (Semantic Versioning 2.0.0 (semver.org), https://semver.org/spec/v2.0.0.html)
+           the tool's own choice: a pin of a Package.resolved whose version is outside the bounds of a version requirement of the same identity, compared by the order of semantic versions with build metadata left out; a pin with no version under a version requirement, a pin on another branch under a branch requirement and a pin on another commit under a revision requirement count too; a version that is not a semantic version is reported as such
+
+  ERROR    insecure-url                  examples/messy/Packages/OrderCore/Package.swift:13
+           the package "imagecache" is named by http://code.example.test/kestrel-labs/imagecache.git: it is a plain http URL, so the code of the package and the answers of the server travel unencrypted and can be changed on the way
+           fix: name the package by the https URL of its Git repository; for a private package, give the machines that build a credential for https, or set this rule to warning for the SSH URLs your team agreed on
+           rule: a remote package URL whose scheme is not https
+           basis: a remote package is named by the URL of its Git repository, written with https in the examples, and its version is taken from its tags (Adding dependencies to a Swift package (Swift Package Manager documentation), https://github.com/swiftlang/swift-package-manager/blob/main/Sources/PackageManagerDocs/Documentation.docc/Dependencies/AddingDependencies.md)
+           basis: a remote dependency is a Git URL with a requirement: a minimum version up to the next major, an exact version, a half-open or a closed range, a branch or a revision; a local dependency is a path (Package.Dependency (Apple Developer Documentation, PackageDescription), https://developer.apple.com/documentation/packagedescription/package/dependency)
+           basis: a package that needs authentication can be named by an SSH URL, with keys set up on every machine that builds (Building Swift packages or apps that use them in continuous integration workflows (Apple Developer Documentation, Xcode), https://developer.apple.com/documentation/xcode/building-swift-packages-or-apps-that-use-them-in-continuous-integration-workflows)
+           the tool's own choice: the URL of a remote package in a manifest or an Xcode project whose scheme is not https: http://, git://, ssh://, the form user@host:path that git reads as SSH, file:// and a text with no scheme; http and git:// travel unencrypted, and an SSH URL needs a key on every machine and names the package differently from its https URL; a team whose private packages need SSH can set this rule to warning
+
+  ERROR    conflicting-requirement       examples/messy/Packages/OrderCore/Package.swift:13
+           the package "imagecache" has the requirement from 2.1.0 here and up to next minor from 2.3.0 in examples/messy/CopperleafOrders.xcodeproj/project.pbxproj:71; the two allow different versions
+           fix: give the package one requirement in every manifest and Xcode project that declares it, or declare it in one place, such as a local package the app depends on
+           rule: one package identity with two different requirements
+           basis: a remote dependency is a Git URL with a requirement: a minimum version up to the next major, an exact version, a half-open or a closed range, a branch or a revision; a local dependency is a path (Package.Dependency (Apple Developer Documentation, PackageDescription), https://developer.apple.com/documentation/packagedescription/package/dependency)
+           basis: upToNextMinor stops before the next minor version, and an exact version is not advised because it can cause conflicts in the dependency graph (Package (Swift Package Manager, PackageDescription API on swift.org), https://docs.swift.org/package-manager/PackageDescription/PackageDescription.html)
+           basis: Package.resolved records the result of dependency resolution, and the versions in it are used for a top-level package; it is ignored when the package is a dependency of another (Resolving and updating dependencies (Swift Package Manager documentation), https://github.com/swiftlang/swift-package-manager/blob/main/Sources/PackageManagerDocs/Documentation.docc/ResolvingPackageVersions.md)
+           the tool's own choice: two declarations of one package identity, in the manifests and the Xcode projects of the folder, whose requirements allow different versions; from: "5.0.0", .upToNextMajor(from: "5.0.0"), "5.0.0"..<"6.0.0" and upToNextMajorVersion 5.0.0 count as one requirement; each declaration after the first that differs is reported, with the place of the first; two locations with one identity are named in the message
+
+  ERROR    branch-requirement            examples/messy/Packages/OrderCore/Package.swift:14
+           the package "keychain-store" follows the branch develop: what it resolves to changes with every push to that branch, and a package that depends on a branch cannot be used by a package that depends on versions
+           fix: depend on a released version, such as from: "1.2.0"; if the package publishes no versions, pin a revision for now and ask its owners for a tag
+           rule: a requirement that follows a branch
+           basis: a package with a branch-based or commit-based requirement cannot be used by a package that uses a version-based requirement, so such requirements are removed before a version is published (Package (Swift Package Manager, PackageDescription API on swift.org), https://docs.swift.org/package-manager/PackageDescription/PackageDescription.html)
+           basis: a branch rule is meant for packages developed together whose versions are not published (Adding package dependencies to your app (Apple Developer Documentation, Xcode), https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app)
+           basis: Xcode advises the version rule, up to the next major or minor version, a range or an exact version, for a package that follows semantic versioning (Adding package dependencies to your app (Apple Developer Documentation, Xcode), https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app)
+           the tool's own choice: a .package call with branch: or .branch(...) in a Package.swift, and a package reference of an Xcode project whose requirement kind is branch; what the branch points at changes with every push to it, so two resolutions of the same commit can get different code
+
+  ERROR    unpinned-dependency           examples/messy/Packages/OrderCore/Package.swift:19
+           the package "featureflags" (code.example.test/orbit-ui/featureflags) is declared, but no Package.resolved of the folder pins it, so its version is chosen anew by each resolution
+           fix: resolve the packages again (swift package resolve, or File > Packages > Resolve Package Versions in Xcode) and commit the Package.resolved it writes
+           rule: a declared remote dependency that no Package.resolved pins
+           basis: Package.resolved records the result of dependency resolution, and the versions in it are used for a top-level package; it is ignored when the package is a dependency of another (Resolving and updating dependencies (Swift Package Manager documentation), https://github.com/swiftlang/swift-package-manager/blob/main/Sources/PackageManagerDocs/Documentation.docc/ResolvingPackageVersions.md)
+           basis: Xcode writes Package.resolved with the commit each dependency resolves to, and the file is committed so that everyone uses the same versions (Adding package dependencies to your app (Apple Developer Documentation, Xcode), https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app)
+           basis: Package.resolved is committed so that CI does not build with unexpected versions, and xcodebuild gets -disableAutomaticPackageResolution so that it uses the file as it is (Building Swift packages or apps that use them in continuous integration workflows (Apple Developer Documentation, Xcode), https://developer.apple.com/documentation/xcode/building-swift-packages-or-apps-that-use-them-in-continuous-integration-workflows)
+           the tool's own choice: a remote dependency of a manifest or an Xcode project whose identity no Package.resolved of the folder pins, when the folder holds at least one Package.resolved; the files are pooled, so a pin in any of them counts
+
+  WARNING  stale-pin                     examples/messy/CopperleafOrders.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved:31
+           Package.resolved pins "legacy-promises" (https://code.example.test/kestrel-labs/legacy-promises.git) at 6.2.0, but no manifest or Xcode project of the folder declares it: a dependency that was removed, or one that a dependency brings in
+           fix: resolve the packages again so the pin of a removed dependency goes away; if a dependency brings the package in, add its identity to indirectPins
+           rule: a pin no manifest or Xcode project declares, other than logkit
+           basis: Package.resolved records the result of dependency resolution, and the versions in it are used for a top-level package; it is ignored when the package is a dependency of another (Resolving and updating dependencies (Swift Package Manager documentation), https://github.com/swiftlang/swift-package-manager/blob/main/Sources/PackageManagerDocs/Documentation.docc/ResolvingPackageVersions.md)
+           basis: swift package resolve keeps the versions of Package.resolved while they are still eligible, and swift package update moves to the latest eligible versions and writes the file again (Resolving and updating dependencies (Swift Package Manager documentation), https://github.com/swiftlang/swift-package-manager/blob/main/Sources/PackageManagerDocs/Documentation.docc/ResolvingPackageVersions.md)
+           the tool's own choice: a pin whose identity no manifest and no Xcode project of the folder declares, remote or local, and that indirectPins does not list; the tool fetches nothing, so it cannot see the packages a dependency brings in, and lists them for you to put in indirectPins once checked
+
+  WARNING  revision-requirement          examples/messy/Packages/OrderCore/Package.swift:17
+           the package "markdownview" is pinned to the revision 4f1c2a9e7b3d with no version: it takes no fix, and the commit does not say which version it holds
+           fix: depend on the released version that holds the commit, such as exact: "1.2.0" or from: "1.2.0"
+           rule: a requirement that names one commit and no version
+           basis: a commit rule is not advised and is for exceptional cases: it holds one commit and brings no updates (Adding package dependencies to your app (Apple Developer Documentation, Xcode), https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app)
+           basis: a package with a branch-based or commit-based requirement cannot be used by a package that uses a version-based requirement, so such requirements are removed before a version is published (Package (Swift Package Manager, PackageDescription API on swift.org), https://docs.swift.org/package-manager/PackageDescription/PackageDescription.html)
+           the tool's own choice: a .package call with revision: or .revision(...), and a package reference of an Xcode project whose requirement kind is revision; it is a warning, not an error, because a revision does not move, but it brings no updates and no version the team can read
+
+  WARNING  wide-range                    examples/messy/Packages/OrderCore/Package.swift:19
+           the package "featureflags" takes the range 1.0.0..<99.0.0, which reaches past 2.0.0, the next major version of 1.0.0; versions in it may break the API
+           fix: use from: with the lowest version you need, which stops before the next major version, or end the range at the next major version
+           rule: a range that allows more than one major version
+           basis: the major version is raised for every change that breaks the public API (Semantic Versioning 2.0.0 (semver.org), https://semver.org/spec/v2.0.0.html)
+           basis: from: is the advised way to name a remote dependency, and takes the versions up to the next major version (Package (Swift Package Manager, PackageDescription API on swift.org), https://docs.swift.org/package-manager/PackageDescription/PackageDescription.html)
+           basis: Xcode advises the version rule, up to the next major or minor version, a range or an exact version, for a package that follows semantic versioning (Adding package dependencies to your app (Apple Developer Documentation, Xcode), https://developer.apple.com/documentation/xcode/adding-package-dependencies-to-your-app)
+           the tool's own choice: a range "a"..<"b" whose upper bound is above the next major version of a, a closed range "a"..."b" that holds it, and a versionRange of an Xcode project of the same kind; such a range takes versions that may break the API, so "1.0.0"..<"99.0.0" says no more than "any version"
+
+  WARNING  deprecated-package            examples/messy/Packages/OrderCore/Package.swift:20
+           the package "swift-retry" (code.example.test/old-tools/swift-retry) matches code.example.test/old-tools/* of deprecatedPackages: the old-tools organization moved to code.example.test/ridge-tools; point the URL there
+           fix: move to the package or location the message names, and resolve again
+           rule: a package location matching code.example.test/old-tools/*
+           basis: the Swift project moves its repositories from the apple organization on GitHub to the swiftlang organization, so the address of a package can change while the package stays the same (The Swift project moves to a new GitHub organization (swift.org blog), https://www.swift.org/blog/swiftlang-github/)
+           the tool's own choice: a remote package of a manifest or an Xcode project whose normalized location matches a pattern of deprecatedPackages; the list is empty by default, because which packages a team has left behind, and where a repository moved, is not something the tool can look up
+
+  INFO     local-package                 examples/messy/CopperleafOrders.xcodeproj/project.pbxproj:53
+           the package at the path "Packages/OrderCore" is a local package: it has no version and uses whatever is at the path
+           fix: keep a local package inside the repository; if it stands in for a remote package during development, switch back to the URL before the change is merged
+           rule: a local package dependency
+           basis: a local dependency is for a package under development or for packages tied closely together (Package (Swift Package Manager, PackageDescription API on swift.org), https://docs.swift.org/package-manager/PackageDescription/PackageDescription.html)
+           basis: a local dependency has no version constraint and uses whatever is at the path (Adding dependencies to a Swift package (Swift Package Manager documentation), https://github.com/swiftlang/swift-package-manager/blob/main/Sources/PackageManagerDocs/Documentation.docc/Dependencies/AddingDependencies.md)
+           the tool's own choice: a .package(path:) call and a local package reference of an Xcode project; a note, because a local package inside the repository is a normal way to split an app, but one outside it, or one that stands in for a remote package during development, is worth a look
+
+  INFO     local-package                 examples/messy/Packages/OrderCore/Package.swift:24
+           the package at the path "../DesignTokens" is a local package: it has no version and uses whatever is at the path; the path reaches outside the folder of this file
+           fix: keep a local package inside the repository; if it stands in for a remote package during development, switch back to the URL before the change is merged
+           rule: a local package dependency
+           basis: a local dependency is for a package under development or for packages tied closely together (Package (Swift Package Manager, PackageDescription API on swift.org), https://docs.swift.org/package-manager/PackageDescription/PackageDescription.html)
+           basis: a local dependency has no version constraint and uses whatever is at the path (Adding dependencies to a Swift package (Swift Package Manager documentation), https://github.com/swiftlang/swift-package-manager/blob/main/Sources/PackageManagerDocs/Documentation.docc/Dependencies/AddingDependencies.md)
+           the tool's own choice: a .package(path:) call and a local package reference of an Xcode project; a note, because a local package inside the repository is a normal way to split an app, but one outside it, or one that stands in for a remote package during development, is worth a look
+
+note: 1 path matching Vendor/** is left out
+note: 1 folder named .build, DerivedData, Pods or .git is passed over
+
+This check reads Package.swift, Package.resolved and the Xcode project files on disk as text and fetches nothing; it never says what the latest version of a package is. A finding is a lead with a file and a line, and a clean result is not a package resolution and not a build (docs/limits.md).
+
+RESULT: FAIL - 6 findings at or above error (6 error, 4 warning, 2 info)

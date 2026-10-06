@@ -1,0 +1,110 @@
+spm-dependency-check: examples/messy
+input: 2 manifests; 1 Xcode project; 1 Package.resolved; 1 other file passed over; 1 folder named .build, DerivedData, Pods or .git passed over; 1 path excluded; 0 links not followed
+config: examples/config.json (Copperleaf dependency review): deprecated packages code.example.test/old-tools/*; indirect pins logkit; exclude Vendor/**; minimum severity info; fail on error
+rules: branch-requirement (error); insecure-url (error); conflicting-requirement (error); unpinned-dependency (error); resolved-outside-requirement (error); revision-requirement (warning); missing-resolved (warning); stale-pin (warning); wide-range (warning); deprecated-package (warning); unreadable-requirement (warning); local-package (info); unreadable-file (error); scan-limit (error)
+findings: 12 (6 error, 4 warning, 2 info)
+
+Files (4)
+
+  file                                                                                                 kind                 remote  local  pins  products  error  warning  info
+  examples/messy/CopperleafOrders.xcodeproj/project.pbxproj                                            Xcode project        3       1      0     4         0      0        1
+  examples/messy/CopperleafOrders.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved  Package.resolved v3  0       0      8     0         2      1        0
+  examples/messy/Packages/DesignTokens/Package.swift                                                   manifest             0       0      0     0         0      0        0
+  examples/messy/Packages/OrderCore/Package.swift                                                      manifest             6       1      0     7         4      3        1
+
+Packages (11)
+
+  package          kind      declared  requirement                                        resolved                       products
+  analytics-kit    remote    1         exact 3.1.0                                        3.1.2                          1
+  designtokens     local     1         local path                                         -                              1
+  featureflags     remote    1         1.0.0..<99.0.0                                     -                              1
+  imagecache       remote    2         up to next minor from 2.3.0 / from 2.1.0           2.3.4                          2
+  keychain-store   remote    1         branch develop                                     branch develop (a3f6c9e2b5d8)  1
+  legacy-promises  pin only  0         -                                                  6.2.0                          0
+  logkit           pin only  0         -                                                  1.6.0                          0
+  markdownview     remote    1         revision 4f1c2a9e7b3d5f6a8c0e1b2d3f4a5c6e7b8d9f0a  revision 4f1c2a9e7b3d          1
+  netkit           remote    2         from 5.0.0                                         4.9.0                          2
+  ordercore        local     1         local path                                         -                              1
+  swift-retry      remote    1         from 1.4.0                                         1.4.2                          1
+
+Summary
+
+  packages: 11 (7 remote, 2 local), in 11 declarations
+  requirement kinds: 4 up to next major, 1 up to next minor, 1 exact, 1 range, 1 branch, 1 revision, 2 local path
+  resolved: 8 pins in 1 Package.resolved file
+  products used by targets: 11
+
+Rules (14)
+
+  rule                          level    findings
+  branch-requirement            error    1
+  insecure-url                  error    1
+  conflicting-requirement       error    1
+  unpinned-dependency           error    1
+  resolved-outside-requirement  error    2
+  revision-requirement          warning  1
+  missing-resolved              warning  0
+  stale-pin                     warning  1
+  wide-range                    warning  1
+  deprecated-package            warning  1
+  unreadable-requirement        warning  0
+  local-package                 info     2
+  unreadable-file               error    0
+  scan-limit                    error    0
+
+Findings (12)
+
+  ERROR    resolved-outside-requirement  examples/messy/CopperleafOrders.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved:10
+           Package.resolved pins "analytics-kit" at 3.1.2, which the requirement exact 3.1.0 in examples/messy/CopperleafOrders.xcodeproj/project.pbxproj:79 does not allow (above 3.1.0)
+           fix: resolve the packages again so the pin follows the requirement, and commit the Package.resolved; if the pin is the version you want, change the requirement to allow it
+
+  ERROR    resolved-outside-requirement  examples/messy/CopperleafOrders.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved:63
+           Package.resolved pins "netkit" at 4.9.0, which the requirement from 5.0.0 in examples/messy/CopperleafOrders.xcodeproj/project.pbxproj:63 does not allow (lower than 5.0.0)
+           fix: resolve the packages again so the pin follows the requirement, and commit the Package.resolved; if the pin is the version you want, change the requirement to allow it
+
+  ERROR    insecure-url                  examples/messy/Packages/OrderCore/Package.swift:13
+           the package "imagecache" is named by http://code.example.test/kestrel-labs/imagecache.git: it is a plain http URL, so the code of the package and the answers of the server travel unencrypted and can be changed on the way
+           fix: name the package by the https URL of its Git repository; for a private package, give the machines that build a credential for https, or set this rule to warning for the SSH URLs your team agreed on
+
+  ERROR    conflicting-requirement       examples/messy/Packages/OrderCore/Package.swift:13
+           the package "imagecache" has the requirement from 2.1.0 here and up to next minor from 2.3.0 in examples/messy/CopperleafOrders.xcodeproj/project.pbxproj:71; the two allow different versions
+           fix: give the package one requirement in every manifest and Xcode project that declares it, or declare it in one place, such as a local package the app depends on
+
+  ERROR    branch-requirement            examples/messy/Packages/OrderCore/Package.swift:14
+           the package "keychain-store" follows the branch develop: what it resolves to changes with every push to that branch, and a package that depends on a branch cannot be used by a package that depends on versions
+           fix: depend on a released version, such as from: "1.2.0"; if the package publishes no versions, pin a revision for now and ask its owners for a tag
+
+  ERROR    unpinned-dependency           examples/messy/Packages/OrderCore/Package.swift:19
+           the package "featureflags" (code.example.test/orbit-ui/featureflags) is declared, but no Package.resolved of the folder pins it, so its version is chosen anew by each resolution
+           fix: resolve the packages again (swift package resolve, or File > Packages > Resolve Package Versions in Xcode) and commit the Package.resolved it writes
+
+  WARNING  stale-pin                     examples/messy/CopperleafOrders.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved:31
+           Package.resolved pins "legacy-promises" (https://code.example.test/kestrel-labs/legacy-promises.git) at 6.2.0, but no manifest or Xcode project of the folder declares it: a dependency that was removed, or one that a dependency brings in
+           fix: resolve the packages again so the pin of a removed dependency goes away; if a dependency brings the package in, add its identity to indirectPins
+
+  WARNING  revision-requirement          examples/messy/Packages/OrderCore/Package.swift:17
+           the package "markdownview" is pinned to the revision 4f1c2a9e7b3d with no version: it takes no fix, and the commit does not say which version it holds
+           fix: depend on the released version that holds the commit, such as exact: "1.2.0" or from: "1.2.0"
+
+  WARNING  wide-range                    examples/messy/Packages/OrderCore/Package.swift:19
+           the package "featureflags" takes the range 1.0.0..<99.0.0, which reaches past 2.0.0, the next major version of 1.0.0; versions in it may break the API
+           fix: use from: with the lowest version you need, which stops before the next major version, or end the range at the next major version
+
+  WARNING  deprecated-package            examples/messy/Packages/OrderCore/Package.swift:20
+           the package "swift-retry" (code.example.test/old-tools/swift-retry) matches code.example.test/old-tools/* of deprecatedPackages: the old-tools organization moved to code.example.test/ridge-tools; point the URL there
+           fix: move to the package or location the message names, and resolve again
+
+  INFO     local-package                 examples/messy/CopperleafOrders.xcodeproj/project.pbxproj:53
+           the package at the path "Packages/OrderCore" is a local package: it has no version and uses whatever is at the path
+           fix: keep a local package inside the repository; if it stands in for a remote package during development, switch back to the URL before the change is merged
+
+  INFO     local-package                 examples/messy/Packages/OrderCore/Package.swift:24
+           the package at the path "../DesignTokens" is a local package: it has no version and uses whatever is at the path; the path reaches outside the folder of this file
+           fix: keep a local package inside the repository; if it stands in for a remote package during development, switch back to the URL before the change is merged
+
+note: 1 path matching Vendor/** is left out
+note: 1 folder named .build, DerivedData, Pods or .git is passed over
+
+This check reads Package.swift, Package.resolved and the Xcode project files on disk as text and fetches nothing; it never says what the latest version of a package is. A finding is a lead with a file and a line, and a clean result is not a package resolution and not a build (docs/limits.md).
+
+RESULT: FAIL - 6 findings at or above error (6 error, 4 warning, 2 info)

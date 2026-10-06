@@ -1,0 +1,8 @@
+{
+  "name": "Copperleaf dependency review",
+  "exclude": ["Vendor/**"],
+  "deprecatedPackages": [
+    { "match": "code.example.test/old-tools/*", "use": "the old-tools organization moved to code.example.test/ridge-tools; point the URL there" }
+  ],
+  "indirectPins": ["logkit"]
+}

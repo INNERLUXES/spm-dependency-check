@@ -1,0 +1,22 @@
+{
+  "name": "built-in defaults",
+  "rules": {
+    "branchRequirement": "error",
+    "insecureUrl": "error",
+    "conflictingRequirement": "error",
+    "unpinnedDependency": "error",
+    "resolvedOutsideRequirement": "error",
+    "revisionRequirement": "warning",
+    "missingResolved": "warning",
+    "stalePin": "warning",
+    "wideRange": "warning",
+    "deprecatedPackage": "warning",
+    "unreadableRequirement": "warning",
+    "localPackage": "info"
+  },
+  "deprecatedPackages": [],
+  "indirectPins": [],
+  "exclude": [],
+  "minSeverity": "info",
+  "failOn": "error"
+}

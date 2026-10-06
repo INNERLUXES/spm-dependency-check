@@ -1,0 +1,77 @@
+{
+  "originHash" : "9c41d7f2a0b35e86c1d4f7a2b9e0c3d6f8a1b4c7d0e3f6a9b2c5d8e1f4a7b0c3",
+  "pins" : [
+    {
+      "identity" : "analytics-kit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://code.example.test/kestrel-labs/analytics-kit.git",
+      "state" : {
+        "revision" : "b7e2c9d4a1f6e3b8c5d2a9f6e3b0c7d4a1e8f5b2",
+        "version" : "3.1.2"
+      }
+    },
+    {
+      "identity" : "imagecache",
+      "kind" : "remoteSourceControl",
+      "location" : "http://code.example.test/kestrel-labs/imagecache.git",
+      "state" : {
+        "revision" : "e1d4a7b0c3f6e9d2a5b8c1f4e7d0a3b6c9f2e5d8",
+        "version" : "2.3.4"
+      }
+    },
+    {
+      "identity" : "keychain-store",
+      "kind" : "remoteSourceControl",
+      "location" : "https://code.example.test/orbit-ui/keychain-store.git",
+      "state" : {
+        "branch" : "develop",
+        "revision" : "a3f6c9e2b5d8a1f4c7e0b3d6a9f2c5e8b1d4a7f0"
+      }
+    },
+    {
+      "identity" : "legacy-promises",
+      "kind" : "remoteSourceControl",
+      "location" : "https://code.example.test/kestrel-labs/legacy-promises.git",
+      "state" : {
+        "revision" : "d9a2f5c8e1b4d7a0f3c6e9b2d5a8f1c4e7b0d3a6",
+        "version" : "6.2.0"
+      }
+    },
+    {
+      "identity" : "logkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://code.example.test/kestrel-labs/logkit.git",
+      "state" : {
+        "revision" : "c2f5a8d1e4b7c0f3a6d9e2b5c8f1a4d7e0b3c6f9",
+        "version" : "1.6.0"
+      }
+    },
+    {
+      "identity" : "markdownview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://code.example.test/orbit-ui/markdownview.git",
+      "state" : {
+        "revision" : "4f1c2a9e7b3d5f6a8c0e1b2d3f4a5c6e7b8d9f0a"
+      }
+    },
+    {
+      "identity" : "netkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://code.example.test/kestrel-labs/netkit.git",
+      "state" : {
+        "revision" : "f0e3b6d9a2c5f8e1b4d7a0c3f6e9b2d5a8c1f4e7",
+        "version" : "4.9.0"
+      }
+    },
+    {
+      "identity" : "swift-retry",
+      "kind" : "remoteSourceControl",
+      "location" : "https://code.example.test/old-tools/swift-retry.git",
+      "state" : {
+        "revision" : "b5c8f1e4a7d0b3c6f9e2a5d8b1c4f7e0a3d6b9c2",
+        "version" : "1.4.2"
+      }
+    }
+  ],
+  "version" : 3
+}
